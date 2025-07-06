@@ -1,0 +1,709 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  overflow: hidden;
+}
+
+
+
+.contenedor {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mapa-wrapper {
+  position: relative;
+  height: 100vh;
+}
+
+.imagen-mapa {
+  height: 105%;
+  width: auto;
+  display: block;
+}
+
+.overlay-puntos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.punto {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: rgb(255, 57, 57);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90%;
+  padding: 25px 5vw; /* Cambiado de 100px a 5vw */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  z-index: 100;
+  font-family: 'Inter', sans-serif;
+}
+.nav-left {
+  color: #000000;
+  font-weight: 500;
+}
+
+.nav-left a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+}
+
+.nav-right {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-right a {
+  text-decoration: none;
+  color: #6f6f6f;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.nav-right a:hover {
+  color: #111;
+}
+
+.punto:hover {
+  background-color: #ad2020; /* color al pasar el mouse */
+  cursor: pointer;
+  transform: scale(1.3) translate(-50%, -50%);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 130%; /* aparece sobre el punto */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+ font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+/* Mostrar el tooltip al hacer hover en el punto */
+.punto:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+#contenido {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  z-index: 50;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 20px;
+}
+  
+
+#contenido h1 {
+  font-family: 'Baskervville', serif;
+  font-size: 2.7rem;
+  font-weight: normal;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+#contenido h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #919191;
+  margin-bottom: 40px;
+}
+
+#contenido p {
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+  font-size: 1rem;
+  
+  line-height: 1.5;
+}
+  
+
+
+#ingresarBtn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #7b9cc6; /* color celeste similar al que mostraste */
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+#ingresarBtn:hover {
+  background-color: #5d7fa3;
+}
+
+body.noche #navbar a {
+  color: #ffffff;
+}
+
+body.noche #navbar a:hover {
+  color: #dddddd;
+}
+
+body.noche .nav-left a {
+  color: #ffffff;
+}
+
+body.noche {
+
+    background: rgb(10, 5, 56);
+}
+
+.boton-volver {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  padding: 10px 20px;
+  background-color: #7b9cc6;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 100;
+  transition: background-color 0.3s ease;
+}
+
+.boton-volver:hover {
+  background-color: #5d7fa3;
+}
+
+
+/* CONTINÚA TODO TU CSS EXISTENTE ARRIBA SIN CAMBIOS */
+
+/* NUEVO ESTILO PARA EL POPUP CON FORMATO FIGMA */
+
+
+
+.oculto {
+  display: none !important;
+}
+
+#fondo-oscuro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.45); /* oscuridad suave */
+  z-index: 150; /* debajo del popup pero sobre el fondo */
+  backdrop-filter: blur(2px); /* opcional: desenfoque leve */
+}
+
+body.zoom-dirigido {
+  animation: zoomDirigido 0.6s ease forwards;
+}
+
+body.animar-zoom-out {
+  animation: zoomOut 0.6s ease forwards;
+}
+
+@keyframes zoomDirigido {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.breadcrumb-nav {
+  position: fixed;
+  top: 70px; /* debajo del navbar */
+  left: 5vw; /* MISMO margen que el navbar */
+  font-size: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  z-index: 90;
+  background: rgba(255,255,255,0.2);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+body.noche .breadcrumb-nav {
+  background: rgba(20, 20, 40, 0.4);
+  color: #fff;
+}
+
+.breadcrumb-nav a {
+  text-decoration: none;
+  color: #6f6f6f;
+}
+
+.breadcrumb-nav a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-nav span {
+  color: #222;
+}
+
+body.noche .breadcrumb-nav a {
+  color: #ccc;
+}
+
+body.noche .breadcrumb-nav span {
+  color: #fff;
+}
+
+.punto-choapa {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  width: 7%;
+  padding-bottom: 6%;
+  z-index: 100;
+}
+
+.punto-choapa::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px dashed #ffffff;
+  border-radius: 50%;
+  animation: girarContorno 10s linear infinite;
+}
+
+/* Hover mantiene comportamiento original */
+.punto-choapa:hover::before {
+  transform: scale(1.3);
+  transition: transform 0.2s ease;
+}
+
+/* Tooltip igual que antes */
+.punto-choapa .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+/* Mostrar tooltip en hover */
+.punto-choapa:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Rotación del contorno */
+@keyframes girarContorno {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.punto-choapa:hover {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.paisaje-parallax {
+  position: absolute;
+  width: 6vw;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  z-index: 20;
+}
+
+/* Aplica el hover sobre la imagen */
+.paisaje-parallax img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.paisaje-parallax img:hover {
+  transform: scale(1.1);
+}
+
+/* Tooltip aparece cuando se hace hover en la imagen */
+.paisaje-parallax .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-size: 0.7rem;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+/* Usamos + para seleccionar el tooltip que sigue a la imagen */
+.paisaje-parallax img:hover + .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+#paisaje-salmuera {
+  width: 7vw;
+}
+
+#paisaje-conchali {
+  width: 10.5vw;
+}
+#paisaje-bosques {
+  width: 11vw;
+}
+
+#paisaje-caimanes {
+  width: 6.5vw;
+}
+
+#paisaje-quebrada {
+  width: 12vw;
+  z-index: 101;
+}
+
+#paisaje-ecosistematranque {
+  width: 11vw;
+}
+
+#paisaje-chacay {
+  width: 6vw;
+}
+
+#paisaje-botadero {
+  width: 8vw;
+}
+
+#paisaje-glaciares {
+  width: 21vw;
+}
+
+.grupo-puerto,
+.grupo-tranque,
+.grupo-mina {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#punto-puerto:hover ~ .grupo-puerto,
+#punto-tranque:hover ~ .grupo-tranque,
+#punto-mina:hover ~ .grupo-mina {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.leyenda-filtros {
+  position: fixed;
+  bottom: 3vw;
+  left: 5vw; /* MISMO margen que el navbar */
+  display: flex;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 10px 10px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 200;
+}
+
+.filtro-btn {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  transition: ease 0.5s;
+  position: relative;
+  display: inline-block;
+}
+
+.filtro-btn img {
+  width: 40px;
+  height: auto;
+}
+
+
+.tooltip-custom {
+  visibility: hidden;
+  background-color: #ffffff;
+  color: #333;
+  text-align: center;
+  font-size: 14px;
+  padding: 5px 8px;
+  border-radius: 50px;
+  position: absolute;
+  bottom: 140%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  z-index: 10;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+.filtro-btn:hover .tooltip-custom {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+#punto-puerto:hover ~ .grupo-puerto,
+#punto-tranque:hover ~ .grupo-tranque,
+#punto-mina:hover ~ .grupo-mina {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tipo-biótico,
+.tipo-antrópico,
+.tipo-físico {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.filtro-btn:hover {
+  
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.tipo-biótico.mostrar-leyenda,
+.tipo-antrópico.mostrar-leyenda,
+.tipo-físico.mostrar-leyenda {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.icono-paisaje {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  z-index: 50;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.icono-paisaje img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.icono-paisaje:hover {
+  transform: scale(1.15) translate(-50%, -50%);
+}
+
+.icono-paisaje:hover img {
+  filter: brightness(1.2); /* más oscuro */
+  transform: scale(1.05);
+}
+
+.icono-paisaje .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.icono-paisaje:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+@keyframes parpadeo-suave {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.parpadeante {
+  animation: parpadeo-suave 2s ease-in-out infinite;
+}
+
+.descripcion-paisaje {
+   position: absolute;
+ bottom: 10vw;
+  left: 5vw;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  max-width: 300px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 300;
+}
+.descripcion-paisaje strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+
+.descripcion-paisaje.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.ficha-personaje {
+  position: absolute;
+  bottom: 5vw;
+  right: 28vw;
+  width: clamp(440px, 28vw, 320px); /* se adapta entre 240px y 320px según el ancho de pantalla */
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 12px;
+  
+  font-family: 'Inter', sans-serif;
+  z-index: 400;
+}
+.ficha-titulo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  color: #222;
+}
+
+.ficha-subtitulo {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.ficha-categoria {
+  font-size: 0.85rem;
+  font-weight: 500;
+  background-color: #e63946;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  display: inline-block;
+  border-radius: 999px;
+  margin-bottom: 0.6rem;
+}
+
+.ficha-imagen {
+  width: 100%;
+  height: auto;
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
+}
+
+.ficha-texto {
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+.ficha-fuente {
+  font-size: 0.75rem;
+  color: #777;
+  margin-top: 0.8rem;
+}
