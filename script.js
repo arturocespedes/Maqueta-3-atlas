@@ -159,15 +159,15 @@ const texto = document.getElementById("textoPaisaje");
 const descripciones = {
   "punto-biótico": {
     titulo: "Paisajes Bióticos",
-    texto: "Representan elementos vivos como flora, fauna y ecosistemas naturales."
+    texto: "Transformaciones que impactan seres vivos del ecosistema, como flora, fauna, microorganismos o comunidades más que humanas."
   },
   "punto-antrópico": {
     titulo: "Paisajes Antrópicos",
-    texto: "Muestran infraestructuras humanas e intervenciones sobre el territorio."
+    texto: "Consecuencias generadas por la interveción humana en el territorio, ya sea por acción directa o indirecta."
   },
   "punto-físico": {
     titulo: "Paisajes Físicos",
-    texto: "Refieren a elementos geográficos y características naturales del terreno."
+    texto: "Transformaciones del suelo y relieve originada por la acción extractiva sobre el territorio."
   }
 };
 
