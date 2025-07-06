@@ -313,7 +313,7 @@ body.noche .breadcrumb-nav span {
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: auto;
-  width: 6%;
+  width: 5.5%;
   padding-bottom: 6%;
   z-index: 100;
 }
@@ -325,7 +325,7 @@ body.noche .breadcrumb-nav span {
   left: 0;
   width: 100%;
   height: 100%;
-  border: 2px dashed #ffffff;
+  border: 4px dashed #ffffff;
   border-radius: 50%;
   animation: girarContorno 10s linear infinite;
 }
