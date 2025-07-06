@@ -107,7 +107,7 @@ html, body {
   padding: 6px 10px;
   border-radius: 20px;
   white-space: nowrap;
-  font-size: 0.9rem;
+  font-size: 1rem;
   z-index: 10;
   transition: opacity 0.2s ease;
  font-family: 'Inter', sans-serif;
@@ -271,7 +271,7 @@ body.animar-zoom-out {
   position: fixed;
   top: 70px; /* debajo del navbar */
   left: 5vw; /* MISMO margen que el navbar */
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-family: 'Inter', sans-serif;
   z-index: 90;
   background: rgba(255,255,255,0.2);
@@ -313,7 +313,7 @@ body.noche .breadcrumb-nav span {
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: auto;
-  width: 7%;
+  width: 8%;
   padding-bottom: 6%;
   z-index: 100;
 }
@@ -630,7 +630,7 @@ body.noche .breadcrumb-nav span {
   max-width: 300px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   line-height: 1.4;
   opacity: 0;
   transform: translateY(10px);
@@ -665,21 +665,21 @@ body.noche .breadcrumb-nav span {
   z-index: 400;
 }
 .ficha-titulo {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.2rem;
   color: #222;
 }
 
 .ficha-subtitulo {
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   font-style: italic;
   color: #555;
   margin-bottom: 0.5rem;
 }
 
 .ficha-categoria {
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 500;
   background-color: #e63946;
   color: white;
@@ -697,13 +697,13 @@ body.noche .breadcrumb-nav span {
 }
 
 .ficha-texto {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #333;
   line-height: 1.4;
 }
 
 .ficha-fuente {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: #777;
   margin-top: 0.8rem;
 }
