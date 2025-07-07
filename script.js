@@ -167,7 +167,7 @@ const descripciones = {
   },
   "punto-físico": {
     titulo: "Paisajes Físicos",
-    texto: "Transformaciones del suelo y relieve originada por la acción extractiva sobre el territorio."
+    texto: "Transformaciones del suelo y relieve originadas por la acción extractiva sobre el territorio."
   }
 };
 
